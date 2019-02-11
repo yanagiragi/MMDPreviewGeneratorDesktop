@@ -58,13 +58,12 @@
       }
 
       .inputHidden{
-        width: 1920px;
-        height: 200px;
-        background: red;
+        width: -webkit-fill-available;
+        height: -webkit-fill-available;
         position: absolute;
-        margin-top: -200px;
         z-index: 999;
-        opacity: 0;
+        top: 50px;
+        opacity: 1;
       }
 
       .opacTransiion {
@@ -105,8 +104,7 @@
       </ul>
     </div>
 
-    <div>
-      
+
       <div id="test-swipe-4"  class="row s12">
         <div class="card row col s6 offset-s3" style="margin-top: 19px">
           <div class="card-image waves-effect waves-block waves-light">
@@ -128,7 +126,8 @@
           </div>
         </div>            
       </div>
-
+    
+      <div id="DelayHolder" style="display: none;">
       <div id="test-swipe-1">
         <div class="customPadding row opacTransiion" id="generateInput">
             <h6 style="padding: 10px; padding-bottom: 5px;">Inputs</h6>
@@ -154,7 +153,11 @@
               </div>
             </form>
         </div>
-        <div class="customPadding row inputHidden" id="generateInputHidden"></div>
+        <div class="customPadding row inputHidden" id="generateInputHidden">
+            <div class="progress">
+                <div class="indeterminate"></div>
+            </div>
+        </div>
         <div class="customPadding2 opacTransiion" id="generateResult">
             <h6 style="padding: 10px;">Results: {{ status }} </h6>
               <ul class="collapsible collection" data-collapsible="accordion">
@@ -206,7 +209,11 @@
                 </div>
               </form>
           </div>
-          <div class="customPadding row inputHidden" id="collectionInputHidden"></div>
+          <div class="customPadding row inputHidden" id="collectionInputHidden">
+              <div class="progress">
+                  <div class="indeterminate"></div>
+              </div>
+          </div>
           <div class="customPadding2 opacTransiion" id="collectionResult">
             <h6 style="padding: 10px;">Results: {{ status }} </h6>
             <div class="row">
@@ -230,6 +237,28 @@
                   </div>      
                 </div>	
               </div>
+              <div v-if="collections.length === 0">
+                  <div v-for="d in 3" class="col s12 m4">
+                      <div class="card">
+                        <div class="card-image waves-effect waves-block waves-light">
+                          <img class="activator" src="assets/img/hakuTransparent.png">
+                        </div>
+                        <div class="card-content">
+                          <div class="card-title activator grey-text text-darken-4" style="height: 32px; text-overflow: ellipsis; overflow: hidden;">
+                            {{ ['This', 'Is', 'Placeholder'][d - 1] }}
+                          </div>					  
+                        </div>
+                        <div class="card-reveal">
+                          <div class="card-title grey-text text-darken-4"  style="font-size: 16px; font-weight: bold; text-overflow: ellipsis; overflow: hidden;">
+                              __ No Data __{{ d }}
+                          </div>
+                          <div style="width: 80%; word-wrap: break-word;">
+                              <br> __ No Data __{{ d }}<br><br> __ No Data __{{ d }}
+                          </div>
+                        </div>      
+                      </div>	
+                    </div>
+              </div>
             </div>
         </div>
       </div>
@@ -249,7 +278,9 @@
       const version = require('./config').getVersion()
 
       $(document).ready(function(){
-          
+        
+        $('#DelayHolder').css('display', '')
+
         $('.tabs').tabs( {
           duration : 500,
           swipeable: false
