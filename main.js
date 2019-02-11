@@ -66,10 +66,11 @@ console.error = (function(d){
 
 console.log(`Programs Starts: ${new Date()}`)
 
-/*ipcMain.on('google', (event, query, index) => {
-    console.log(`query = ${query}, index = ${index}`)
+ipcMain.on('generate', (event, query) => {
+    
+    console.log(`query = ${query}`)
 
-    googleScholar.googleScholar(query, index).then(res => {
+    /*googleScholar.googleScholar(query, index).then(res => {
         res.resultPath = __dirname + '\\' + res.resultPath.replace(/\//g,'\\')
         event.sender.send('googleDone', {
             stat: true,
@@ -80,8 +81,15 @@ console.log(`Programs Starts: ${new Date()}`)
             stat: false,
             msg: e
         })
-    })
-})*/
+    })*/
+
+    setTimeout(() => {
+        event.sender.send('generateDone',{
+            stat: false,
+            msg: ''
+        })
+    }, 1000 * 5)
+})
 
 function createWindow() {
     // Create the browser window.

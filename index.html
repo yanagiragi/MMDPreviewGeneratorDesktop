@@ -82,6 +82,7 @@
       }
 
       .uploadBtn {
+        background: url(assets/img/bg.png);
         opacity: .25;
       }
 
@@ -99,7 +100,7 @@
     <ul id="tabs-swipe-demo" class="tabs" style="opacity: 0.75">
       <li class="tab col s3" id="otherTab"><a href="#test-swipe-4" class="active" id="homeStr">Home</a></li>
       <li class="tab col s5" id="generateTab"><a href="#test-swipe-1">Generate Previews</a></li>
-      <li class="tab col s4" id="doiTab"><a href="#test-swipe-2">View Collections</a></li>
+      <li class="tab col s4" id="collectionTab"><a href="#test-swipe-2">View Collections</a></li>
     </ul>
 
     <div style="height: -webkit-fill-available;">
@@ -126,13 +127,59 @@
         </div>
 
         <div id="test-swipe-1">
+            <div class="customPadding row opacTransiion" id="generateInput">
+                <h6 style="padding: 10px; padding-bottom: 5px;">Inputs</h6>
+                <form class="col s12">
+                  <div class="row">
+                    <div class="input-field col s11">
+                      <input id="generatePath" placeholder="D:\Sources\Models\Pmx\" type="text" class="validate">
+                      <label for="generatePath">Folder Path</label>
+                    </div>
+
+                    <div class="input-field col uploadBtn" style="margin-left: -50px; margin-top: 25px; z-index: 998; width: 38px;">
+                      <div class="file-upload">
+                        <label for="generateFileInput">
+                          <i class="material-icons">cloud_upload</i>
+                        </label>
+                        <input id="generateFileInput" type="file" webkitdirectory directory/>
+                      </div>
+                    </div>
+                    
+                    <a class="btn-floating btn-small waves-effect waves-light" style="margin-top: 20px; margin-left: 5px;" id="submitGenerate">
+                      <i class="material-icons">send</i>
+                    </a>
+                  </div>
+                </form>
+            </div>
+
+            <div class="customPadding row inputHidden" id="generateInputHidden"></div>        
+            
+            <div class="customPadding2 opacTransiion" id="generateResult">
+                <h6 style="padding: 10px;">Results</h6>
+                <div style="padding: 10px;" id=generateResultTitle></div>
+                <ul class="collapsible" id="generateCollapsible">
+                  <li>
+                    <div class="collapsible-header">
+                      <i class="material-icons">filter_drama</i>
+                      <span id="doiStat">Stat: null</span>
+                    </div>
+                    <div class="collapsible-body" id="generateMsg">
+                      <div>No Results</div>
+                    </div>
+                  </li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div id="test-swipe-2">
             <div class="customPadding row opacTransiion" id="doiExtractInput">
                 <h6 style="padding: 10px; padding-bottom: 5px;">Inputs</h6>
                 <form class="col s12">
                   <div class="row">
                     <div class="input-field col s11">
                       <input id="doiPath" placeholder="Result=BRDF.json" type="text" class="validate">
-                      <label for="doiPath">Folder Path</label>
+                      <label for="doiPath">DOI Path</label>
                     </div>
 
                     <div class="input-field col uploadBtn" style="margin-left: -50px; margin-top: 25px; z-index: 998; width: 38px;">
@@ -140,8 +187,13 @@
                         <label for="doifileInput">
                           <i class="material-icons">cloud_upload</i>
                         </label>
-                        <input id="doifileInput" type="file" webkitdirectory directory/>
+                        <input id="doifileInput" type="file" accept=".json"/>
                       </div>
+                    </div>
+
+                    <div class="input-field col s11">
+                      <input id="doiPath2" placeholder="Result=BRDF.json_DOIExtracted.json" type="text" class="validate">
+                      <label for="doiPath2">DOI Extracted Path</label>
                     </div>
                     
                     <a class="btn-floating btn-small waves-effect waves-light" style="margin-top: 20px; margin-left: 5px;" id="submitDOI">
@@ -149,7 +201,7 @@
                     </a>
                   </div>
                 </form>
-            </div>
+            </div>        
 
             <div class="customPadding row inputHidden" id="doiExtractInputHidden"></div>        
             
@@ -169,56 +221,7 @@
                 </ul>
             </div>
         </div>
-      <div id="test-swipe-2">
-          <div class="customPadding row opacTransiion" id="doiExtractInput">
-              <h6 style="padding: 10px; padding-bottom: 5px;">Inputs</h6>
-              <form class="col s12">
-                <div class="row">
-                  <div class="input-field col s11">
-                    <input id="doiPath" placeholder="Result=BRDF.json" type="text" class="validate">
-                    <label for="doiPath">DOI Path</label>
-                  </div>
 
-                  <div class="input-field col uploadBtn" style="margin-left: -50px; margin-top: 25px; z-index: 998; width: 38px;">
-                    <div class="file-upload">
-                      <label for="doifileInput">
-                        <i class="material-icons">cloud_upload</i>
-                      </label>
-                      <input id="doifileInput" type="file" accept=".json"/>
-                    </div>
-                  </div>
-
-                  <div class="input-field col s11">
-                    <input id="doiPath2" placeholder="Result=BRDF.json_DOIExtracted.json" type="text" class="validate">
-                    <label for="doiPath2">DOI Extracted Path</label>
-                  </div>
-                  
-                  <a class="btn-floating btn-small waves-effect waves-light" style="margin-top: 20px; margin-left: 5px;" id="submitDOI">
-                    <i class="material-icons">send</i>
-                  </a>
-                </div>
-              </form>
-          </div>        
-
-          <div class="customPadding row inputHidden" id="doiExtractInputHidden"></div>        
-          
-          <div class="customPadding2 opacTransiion" id="doiResult">
-              <h6 style="padding: 10px;">Results</h6>
-              <div style="padding: 10px;" id=doiResultTitle></div>
-              <ul class="collapsible" id="doiCollapsible">
-                <li>
-                  <div class="collapsible-header">
-                    <i class="material-icons">filter_drama</i>
-                    <span id="doiStat">Stat: null</span>
-                  </div>
-                  <div class="collapsible-body" id="doiMsg">
-                    <div>устраняя преграды на пути распространения знаний.</div>
-                  </div>
-                </li>
-              </ul>
-          </div>
-      </div>
-      
     </div>
     
     <script src="assets/js/hammer.min.js" onload="window.Hammer = module.exports;"></script>
@@ -231,8 +234,6 @@
       const currentBuildOption = require('./config').getOption()
       const version = require('./config').getVersion()
 
-      let limited = currentBuildOption.limit
-
       $(document).ready(function(){
           $('.tabs').tabs( {
             duration : 500,
@@ -244,35 +245,18 @@
           $(".tabs-content").css('height','');
           $(".tabs-content").css('overflow', 'hidden');
 
-          //$('#doiResult').toggle('opacTransitionToggle')
-          $('#doiExtractInputHidden').css('display', 'none')
-          $('#scihubInputHidden').css('display', 'none')
-          $('#googleInputHidden').css('display', 'none')
-
-          $('#doiPath').on("change keyup paste", function(){
-              $('#doiPath2').val(`${$('#doiPath').val()}_DOIExtracted.json`);
-          })
-
-          $('#doifileInput').on("change", function(event){
-              if(document.getElementById('doifileInput').files[0]){
-                $('#doiPath').val(`${document.getElementById('doifileInput').files[0].path}`);
-                $('#doiPath2').val(`${document.getElementById('doifileInput').files[0].path}_DOIExtracted.json`);
+          // Disable Hiddle Blocks
+          $('#generateInputHidden').css('display', 'none');
+          $('#doiExtractInputHidden').css('display', 'none');
+             
+          $('#generateFileInput').on("change", function(event){
+              if(document.getElementById('generateFileInput').files[0]){
+                $('#generatePath').val(`${document.getElementById('generateFileInput').files[0].path}`);
               }
           })
-
-          $('#scihubfileInput').on("change", function(event){
-              if(document.getElementById('scihubfileInput').files[0]){
-                $('#scihubTaskPath').val(`${document.getElementById('scihubfileInput').files[0].path}`);
-              }
-          })
-
-          if(limited){
-            $('#homeStr').text('HOME (LIMITED)')
-            $('#googleTab').addClass('disabled')
-          }
 
           if(currentBuildOption.isPhD){
-            // $('#HomeImg').css('display', 'none')
+            $('#HomeImg').css('display', 'none')
             $('#HomeTitle').text('Welcome, Yanagi')
           }
           else{
@@ -292,46 +276,43 @@
       const ipc = require('electron').ipcRenderer
       const { shell } = require('electron')
 
-      $('#submitDOI').click((event) => {
-        console.log('submit DOI')
+      $('#submitGenerate').click((event) => {
         
-        let path = document.getElementById('doifileInput').files[0].path
+        console.log('submit Generate')
+        
+        let path = document.getElementById('generateFileInput').files[0].path
 
-        $('#doiExtractInputHidden').css('display', 'block')        
-        $('#doiExtractInput').css('opacity', '0.2')
-        $('#doiResult').toggle('opacTransitionToggle')
+        $('#generateInputHidden').css('display', 'block')        
+        $('#generatePath').css('opacity', '0.2')
+        $('#generateResult').toggle('opacTransitionToggle')
 
-        $('#googleTab').addClass("disabled")
-        $('#doiTab').addClass("disabled")
-        $('#scihubTab').addClass("disabled")
         $('#otherTab').addClass("disabled")
-
+        $('#generateTab').addClass("disabled")
+        $('#collectionTab').addClass("disabled")
+        
         if(path.length > 0){
-          ipc.send('doi', $('#doiPath').val(), $('#doiPath2').val())
+          ipc.send('generate', path)
         }
         
-        M.Toast({html: 'start doi.js', displayLength: Infinity})
+        M.toast({html: 'Start Generate: ' + path, displayLength: Infinity})
 
       })
 
-      ipc.on('doiDone', function (event, args) {
-        console.log('doiDone')
+      ipc.on('generateDone', function (event, args) {
         
-        $('#doiExtractInput').css('opacity', '1')
-        $('#doiExtractInputHidden').css('display', 'none')
+        console.log('generateDone')
         
-        $('#doiResultTitle').text(`Results From ${$('#doiPath').val()}`)
-        $('#doiPath').val('')
-        $('#doiPath2').val('')
-        $('#doifileInput').val('')
-
-        if(!limited)
-          $('#googleTab').removeClass("disabled")
-        $('#doiTab').removeClass("disabled")
-        $('#scihubTab').removeClass("disabled")
+        $('#generatePath').css('opacity', '1')
+        $('#generateInputHidden').css('display', 'none')
+        
+        $('#generateFileInput').val('')
+        $('#generatePath').val('')
+        
         $('#otherTab').removeClass("disabled")
+        $('#generateTab').removeClass("disabled")
+        $('#collectionTab').removeClass("disabled")
         
-        $('#doiStat').text(`Stat: ${args.stat ? "Succeed" : "Failed"}`)
+        $('#generateStat').text(`Stat: ${args.stat ? "Succeed" : "Failed"}`)
         
         if(args.stat){
           let tmpstr = ''
@@ -351,13 +332,14 @@
           console.log(JSON.stringify(args.msg,null,4))
           $('#doiMsg').html(`${args.msg}`)
         }
-        $('#doiResult').toggle('opacTransitionToggle')
+        
+        $('#generateResult').toggle('opacTransitionToggle')
 
-        M.Collapsible.getInstance($('#doiCollapsible')).open(0)
+        M.Collapsible.getInstance($('#generateCollapsible')).open(0)
         M.Toast.dismissAll();
       })
 
-      $('#submitScihub').click((event) => {
+      /*$('#submitScihub').click((event) => {
         console.log('submit SciHub')
         
         $('#scihubInputHidden').css('display', 'block')
@@ -374,7 +356,7 @@
         
         ipc.send('scihub', $('#scihubTaskPath').val())
 
-        M.Toast({html: 'start sci-hub.js', displayLength: Infinity})
+        M.toast({html: 'start sci-hub.js', displayLength: Infinity})
       })
 
       ipc.on('scihubDone', function (event, args) {
@@ -407,7 +389,7 @@
         $('#otherTab').removeClass("disabled")
 
         M.Collapsible.getInstance($('#scihubCollapsible')).open(0)
-        M.Toast.dismissAll();
+        M.toast.dismissAll();
       })
 
       $('#submitGoogle').click((event) => {
@@ -427,7 +409,7 @@
 
         ipc.send('google', $('#searchQuery').val(), $('#startIndex').val())
 
-        M.Toast({html: 'start googleScholar.js', displayLength: Infinity})
+        M.toast({html: 'start googleScholar.js', displayLength: Infinity})
       })
 
       ipc.on('googleDone', function (event, args) {
@@ -465,8 +447,8 @@
         $('#otherTab').removeClass("disabled")
 
         M.Collapsible.getInstance($('#googleCollapsible')).open(0)
-        M.Toast.dismissAll();
-      })
+        M.toast.dismissAll();
+      })*/
 
       ipc.on('logs', function(event, args){
         console.log(`${args.type}: ${args.msg}`)
@@ -475,12 +457,11 @@
           displayLength: 1000 * 300
         }
         
-        if(args.type == 'stdout')
+        if(args.type == 'stdout'){
           opts.classes = 'rounded'
-
-        // opts.html.replace(/<a /g, '<a2').replace('/</a>/g', '<a2>')
-
-        M.toast(opts)
+        }
+        
+         M.toast(opts)
       })
 
       $('#scihubLink').click(function(event){
@@ -488,8 +469,5 @@
       })
 
     </script>
-
-    
-    
   </body>
 </html>
