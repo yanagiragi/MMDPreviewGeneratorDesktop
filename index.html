@@ -104,125 +104,121 @@
     </ul>
 
     <div style="height: -webkit-fill-available;">
+      
       <div id="test-swipe-4"  class="row s12">
         <div class="card row col s6 offset-s3" style="margin-top: 19px">
-            <div class="card-image waves-effect waves-block waves-light">
-              <div id="glCanvasDiv"></div> 
-              <img class="activator" id="HomeImg" src="assets/img/generator.png" style="display: none;">
-            </div>
-            <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4" id="HomeTitle"style="text-align: center;">MMD Preview Generator</span>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">MMD Preview Generator Desktop</span>
-              <hr>
-              <p></p>
-              <p> - Desktop Solution for MMDPreviewGenerator -</p>
-              <p>Version: <span id="version"></span></p>
-              <p>Powered By Node.js & Electron</p>
-              <hr>
-              <p>By <a id="scihubLink">Yanagiragi</a></p>
-            </div>
-          </div>            
-        </div>
+          <div class="card-image waves-effect waves-block waves-light">
+            <div id="glCanvasDiv"></div> 
+            <img class="activator" id="HomeImg" src="assets/img/generator.png" style="display: none;">
+          </div>
+          <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4" id="HomeTitle"style="text-align: center;">MMD Preview Generator</span>
+          </div>
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4">MMD Preview Generator Desktop</span>
+            <hr>
+            <p></p>
+            <p> - Desktop Solution for MMDPreviewGenerator -</p>
+            <p>Version: <span id="version"></span></p>
+            <p>Powered By Node.js & Electron</p>
+            <hr>
+            <p>By <a id="scihubLink">Yanagiragi</a></p>
+          </div>
+        </div>            
+      </div>
 
-        <div id="test-swipe-1">
-            <div class="customPadding row opacTransiion" id="generateInput">
-                <h6 style="padding: 10px; padding-bottom: 5px;">Inputs</h6>
-                <form class="col s12">
-                  <div class="row">
-                    <div class="input-field col s11">
-                      <input id="generatePath" placeholder="D:\Sources\Models\Pmx\" type="text" class="validate">
-                      <label for="generatePath">Folder Path</label>
-                    </div>
+      <div id="test-swipe-1">
+        <div class="customPadding row opacTransiion" id="generateInput">
+            <h6 style="padding: 10px; padding-bottom: 5px;">Inputs</h6>
+            <form class="col s12">
+              <div class="row">
+                <div class="input-field col s11">
+                  <input id="generatePath" placeholder="D:\Sources\Models\Pmx\" type="text" class="validate">
+                  <label for="generatePath">Folder Path</label>
+                </div>
 
-                    <div class="input-field col uploadBtn" style="margin-left: -50px; margin-top: 25px; z-index: 998; width: 38px;">
-                      <div class="file-upload">
-                        <label for="generateFileInput">
-                          <i class="material-icons">cloud_upload</i>
-                        </label>
-                        <input id="generateFileInput" type="file" webkitdirectory directory/>
-                      </div>
-                    </div>
-                    
-                    <a class="btn-floating btn-small waves-effect waves-light" style="margin-top: 20px; margin-left: 5px;" id="submitGenerate">
-                      <i class="material-icons">send</i>
-                    </a>
+                <div class="input-field col uploadBtn" style="margin-left: -50px; margin-top: 25px; z-index: 998; width: 38px;">
+                  <div class="file-upload">
+                    <label for="generateFileInput">
+                      <i class="material-icons">cloud_upload</i>
+                    </label>
+                    <input id="generateFileInput" type="file" webkitdirectory directory/>
                   </div>
-                </form>
-            </div>
-
-            <div class="customPadding row inputHidden" id="generateInputHidden"></div>        
-            
-            <div class="customPadding2 opacTransiion" id="generateResult">
-                <h6 style="padding: 10px;">Results</h6>
-                <div style="padding: 10px;" id=generateResultTitle></div>
-                <ul class="collapsible" id="generateCollapsible">
-                  <li>
-                    <div class="collapsible-header">
-                      <i class="material-icons">filter_drama</i>
-                      <span id="doiStat">Stat: null</span>
-                    </div>
-                    <div class="collapsible-body" id="generateMsg">
-                      <div>No Results</div>
-                    </div>
-                  </li>
-                </ul>
-            </div>
+                </div>
+                
+                <a class="btn-floating btn-small waves-effect waves-light" style="margin-top: 20px; margin-left: 5px;" id="submitGenerate">
+                  <i class="material-icons">send</i>
+                </a>
+              </div>
+            </form>
         </div>
+        <div class="customPadding row inputHidden" id="generateInputHidden"></div>
+        <div class="customPadding2 opacTransiion" id="generateResult">
+            <h6 style="padding: 10px;">Results</h6>
+            <div style="padding: 10px;" id=generateResultTitle></div>
+            <ul class="collapsible" id="generateCollapsible">
+              <li>
+                <div class="collapsible-header">
+                  <i class="material-icons">filter_drama</i>
+                  <span id="doiStat">Stat: null</span>
+                </div>
+                <div class="collapsible-body" id="generateMsg">
+                  <div>No Results</div>
+                </div>
+              </li>
+            </ul>
+        </div>
+      </div>
 
+      <div id="test-swipe-2">
+        <div class="customPadding row opacTransiion" id="doiExtractInput">
+            <h6 style="padding: 10px; padding-bottom: 5px;">Inputs</h6>
+            <form class="col s12">
+              <div class="row">
+                <div class="input-field col s11">
+                  <input id="doiPath" placeholder="Result=BRDF.json" type="text" class="validate">
+                  <label for="doiPath">DOI Path</label>
+                </div>
 
-        <div id="test-swipe-2">
-            <div class="customPadding row opacTransiion" id="doiExtractInput">
-                <h6 style="padding: 10px; padding-bottom: 5px;">Inputs</h6>
-                <form class="col s12">
-                  <div class="row">
-                    <div class="input-field col s11">
-                      <input id="doiPath" placeholder="Result=BRDF.json" type="text" class="validate">
-                      <label for="doiPath">DOI Path</label>
-                    </div>
-
-                    <div class="input-field col uploadBtn" style="margin-left: -50px; margin-top: 25px; z-index: 998; width: 38px;">
-                      <div class="file-upload">
-                        <label for="doifileInput">
-                          <i class="material-icons">cloud_upload</i>
-                        </label>
-                        <input id="doifileInput" type="file" accept=".json"/>
-                      </div>
-                    </div>
-
-                    <div class="input-field col s11">
-                      <input id="doiPath2" placeholder="Result=BRDF.json_DOIExtracted.json" type="text" class="validate">
-                      <label for="doiPath2">DOI Extracted Path</label>
-                    </div>
-                    
-                    <a class="btn-floating btn-small waves-effect waves-light" style="margin-top: 20px; margin-left: 5px;" id="submitDOI">
-                      <i class="material-icons">send</i>
-                    </a>
+                <div class="input-field col uploadBtn" style="margin-left: -50px; margin-top: 25px; z-index: 998; width: 38px;">
+                  <div class="file-upload">
+                    <label for="doifileInput">
+                      <i class="material-icons">cloud_upload</i>
+                    </label>
+                    <input id="doifileInput" type="file" accept=".json"/>
                   </div>
-                </form>
-            </div>        
+                </div>
 
-            <div class="customPadding row inputHidden" id="doiExtractInputHidden"></div>        
-            
-            <div class="customPadding2 opacTransiion" id="doiResult">
-                <h6 style="padding: 10px;">Results</h6>
-                <div style="padding: 10px;" id=doiResultTitle></div>
-                <ul class="collapsible" id="doiCollapsible">
-                  <li>
-                    <div class="collapsible-header">
-                      <i class="material-icons">filter_drama</i>
-                      <span id="doiStat">Stat: null</span>
-                    </div>
-                    <div class="collapsible-body" id="doiMsg">
-                      <div>устраняя преграды на пути распространения знаний.</div>
-                    </div>
-                  </li>
-                </ul>
-            </div>
+                <div class="input-field col s11">
+                  <input id="doiPath2" placeholder="Result=BRDF.json_DOIExtracted.json" type="text" class="validate">
+                  <label for="doiPath2">DOI Extracted Path</label>
+                </div>
+                
+                <a class="btn-floating btn-small waves-effect waves-light" style="margin-top: 20px; margin-left: 5px;" id="submitDOI">
+                  <i class="material-icons">send</i>
+                </a>
+              </div>
+            </form>
+        </div>        
+        <div class="customPadding row inputHidden" id="doiExtractInputHidden"></div>
+        <div class="customPadding2 opacTransiion" id="doiResult">
+            <h6 style="padding: 10px;">Results</h6>
+            <div style="padding: 10px;" id=doiResultTitle></div>
+            <ul class="collapsible" id="doiCollapsible">
+              <li>
+                <div class="collapsible-header">
+                  <i class="material-icons">filter_drama</i>
+                  <span id="doiStat">Stat: null</span>
+                </div>
+                <div class="collapsible-body" id="doiMsg">
+                  <div>устраняя преграды на пути распространения знаний.</div>
+                </div>
+              </li>
+            </ul>
         </div>
+      </div>
 
-    </div>
+    </div> <!-- end of  <div style="height: -webkit-fill-available;">-->
     
     <script src="assets/js/hammer.min.js" onload="window.Hammer = module.exports;"></script>
     <script src="assets/js/jquery-3.3.1.js"></script>
