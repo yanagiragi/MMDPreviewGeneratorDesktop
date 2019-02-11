@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Yanagi MMD Preview Generator Desktop</title>
+    
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="assets/css/materialize.css">
+        
+    <style>
+    
+      /* fallback */
+      @font-face {
+        font-family: 'Material Icons';
+        font-style: normal;
+        font-weight: 400;
+        src: url(assets/font/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
+      }
+
+      .material-icons {
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 24px;
+        line-height: 1;
+        letter-spacing: normal;
+        text-transform: none;
+        display: inline-block;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+        -moz-font-feature-settings: 'liga';
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      .customPadding{
+        padding-left: 10%; 
+        padding-right: 10%;
+        padding-top: 10px;
+        margin-bottom: 0px;
+      }
+
+      .customPadding2 {
+        padding-left: 10%; 
+        padding-right: 10%;
+      }
+
+      body {
+        /*background: url('assets/img/bg2.jpg');*/
+        background: url('assets/img/bg.png');
+        background-repeat: repeat;
+        background-size : 100%;
+        color:  grey;
+        overflow: auto;
+      }
+
+      .tabs-content.carousel.carousel-slider .carousel-item.active{
+          position: relative;
+      }
+
+      .inputHidden{
+        width: 1920px;
+        height: 200px;
+        background: red;
+        position: absolute;
+        margin-top: -200px;
+        z-index: 999;
+        opacity: 0;
+      }
+
+      .opacTransiion {
+        transition-property: opacity 0.5s ease-in-out;
+        opacity: 1;
+      }
+
+      .opacTransiion.opacTransitionToggle {
+        opacity: 0;
+        transition-property: opacity 0.5s ease-in-out;
+      }
+
+      .file-upload > input {
+        display: none;
+      }
+
+      .uploadBtn {
+        opacity: .25;
+      }
+
+      .uploadBtn:hover {
+        opacity: 1;
+        transition: 0.5s ease-in-out;
+        background-color: white;
+      }
+
+    </style>
+
+  </head>
+  <body style="height: -webkit-fill-available; overflow: hidden;">
+    
+    <ul id="tabs-swipe-demo" class="tabs" style="opacity: 0.75">
+      <li class="tab col s3" id="otherTab"><a href="#test-swipe-4" class="active" id="homeStr">Home</a></li>
+      <li class="tab col s5" id="generateTab"><a href="#test-swipe-1">Generate Previews</a></li>
+      <li class="tab col s4" id="doiTab"><a href="#test-swipe-2">View Collections</a></li>
+    </ul>
+
+    <div style="height: -webkit-fill-available;">
+      <div id="test-swipe-4"  class="row s12">
+        <div class="card row col s6 offset-s3" style="margin-top: 19px">
+            <div class="card-image waves-effect waves-block waves-light">
+              <div id="glCanvasDiv"></div> 
+              <img class="activator" id="HomeImg" src="assets/img/generator.png" style="display: none;">
+            </div>
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4" id="HomeTitle"style="text-align: center;">MMD Preview Generator</span>
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">MMD Preview Generator Desktop</span>
+              <hr>
+              <p></p>
+              <p> - Desktop Solution for MMDPreviewGenerator -</p>
+              <p>Version: <span id="version"></span></p>
+              <p>Powered By Node.js & Electron</p>
+              <hr>
+              <p>By <a id="scihubLink">Yanagiragi</a></p>
+            </div>
+          </div>            
+        </div>
+
+        <div id="test-swipe-1">
+            <div class="customPadding row opacTransiion" id="doiExtractInput">
+                <h6 style="padding: 10px; padding-bottom: 5px;">Inputs</h6>
+                <form class="col s12">
+                  <div class="row">
+                    <div class="input-field col s11">
+                      <input id="doiPath" placeholder="Result=BRDF.json" type="text" class="validate">
+                      <label for="doiPath">Folder Path</label>
+                    </div>
+
+                    <div class="input-field col uploadBtn" style="margin-left: -50px; margin-top: 25px; z-index: 998; width: 38px;">
+                      <div class="file-upload">
+                        <label for="doifileInput">
+                          <i class="material-icons">cloud_upload</i>
+                        </label>
+                        <input id="doifileInput" type="file" webkitdirectory directory/>
+                      </div>
+                    </div>
+                    
+                    <a class="btn-floating btn-small waves-effect waves-light" style="margin-top: 20px; margin-left: 5px;" id="submitDOI">
+                      <i class="material-icons">send</i>
+                    </a>
+                  </div>
+                </form>
+            </div>
+
+            <div class="customPadding row inputHidden" id="doiExtractInputHidden"></div>        
+            
+            <div class="customPadding2 opacTransiion" id="doiResult">
+                <h6 style="padding: 10px;">Results</h6>
+                <div style="padding: 10px;" id=doiResultTitle></div>
+                <ul class="collapsible" id="doiCollapsible">
+                  <li>
+                    <div class="collapsible-header">
+                      <i class="material-icons">filter_drama</i>
+                      <span id="doiStat">Stat: null</span>
+                    </div>
+                    <div class="collapsible-body" id="doiMsg">
+                      <div>устраняя преграды на пути распространения знаний.</div>
+                    </div>
+                  </li>
+                </ul>
+            </div>
+        </div>
+      <div id="test-swipe-2">
+          <div class="customPadding row opacTransiion" id="doiExtractInput">
+              <h6 style="padding: 10px; padding-bottom: 5px;">Inputs</h6>
+              <form class="col s12">
+                <div class="row">
+                  <div class="input-field col s11">
+                    <input id="doiPath" placeholder="Result=BRDF.json" type="text" class="validate">
+                    <label for="doiPath">DOI Path</label>
+                  </div>
+
+                  <div class="input-field col uploadBtn" style="margin-left: -50px; margin-top: 25px; z-index: 998; width: 38px;">
+                    <div class="file-upload">
+                      <label for="doifileInput">
+                        <i class="material-icons">cloud_upload</i>
+                      </label>
+                      <input id="doifileInput" type="file" accept=".json"/>
+                    </div>
+                  </div>
+
+                  <div class="input-field col s11">
+                    <input id="doiPath2" placeholder="Result=BRDF.json_DOIExtracted.json" type="text" class="validate">
+                    <label for="doiPath2">DOI Extracted Path</label>
+                  </div>
+                  
+                  <a class="btn-floating btn-small waves-effect waves-light" style="margin-top: 20px; margin-left: 5px;" id="submitDOI">
+                    <i class="material-icons">send</i>
+                  </a>
+                </div>
+              </form>
+          </div>        
+
+          <div class="customPadding row inputHidden" id="doiExtractInputHidden"></div>        
+          
+          <div class="customPadding2 opacTransiion" id="doiResult">
+              <h6 style="padding: 10px;">Results</h6>
+              <div style="padding: 10px;" id=doiResultTitle></div>
+              <ul class="collapsible" id="doiCollapsible">
+                <li>
+                  <div class="collapsible-header">
+                    <i class="material-icons">filter_drama</i>
+                    <span id="doiStat">Stat: null</span>
+                  </div>
+                  <div class="collapsible-body" id="doiMsg">
+                    <div>устраняя преграды на пути распространения знаний.</div>
+                  </div>
+                </li>
+              </ul>
+          </div>
+      </div>
+      
+    </div>
+    
+    <script src="assets/js/hammer.min.js" onload="window.Hammer = module.exports;"></script>
+    <script src="assets/js/jquery-3.3.1.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="assets/js/materialize.js"></script> 
+
+    <script type="text/javascript">
+
+      const currentBuildOption = require('./config').getOption()
+      const version = require('./config').getVersion()
+
+      let limited = currentBuildOption.limit
+
+      $(document).ready(function(){
+          $('.tabs').tabs( {
+            duration : 500,
+            swipeable: false
+          });
+
+          $('.collapsible').collapsible();
+          
+          $(".tabs-content").css('height','');
+          $(".tabs-content").css('overflow', 'hidden');
+
+          //$('#doiResult').toggle('opacTransitionToggle')
+          $('#doiExtractInputHidden').css('display', 'none')
+          $('#scihubInputHidden').css('display', 'none')
+          $('#googleInputHidden').css('display', 'none')
+
+          $('#doiPath').on("change keyup paste", function(){
+              $('#doiPath2').val(`${$('#doiPath').val()}_DOIExtracted.json`);
+          })
+
+          $('#doifileInput').on("change", function(event){
+              if(document.getElementById('doifileInput').files[0]){
+                $('#doiPath').val(`${document.getElementById('doifileInput').files[0].path}`);
+                $('#doiPath2').val(`${document.getElementById('doifileInput').files[0].path}_DOIExtracted.json`);
+              }
+          })
+
+          $('#scihubfileInput').on("change", function(event){
+              if(document.getElementById('scihubfileInput').files[0]){
+                $('#scihubTaskPath').val(`${document.getElementById('scihubfileInput').files[0].path}`);
+              }
+          })
+
+          if(limited){
+            $('#homeStr').text('HOME (LIMITED)')
+            $('#googleTab').addClass('disabled')
+          }
+
+          if(currentBuildOption.isPhD){
+            // $('#HomeImg').css('display', 'none')
+            $('#HomeTitle').text('Welcome, Yanagi')
+          }
+          else{
+            $('#HomeImg').css('display', '')
+          }
+
+          $('#version').text(version)
+      });
+
+      $(document).keypress((event) => {
+          if (event.which == '13') {
+            // Disable "Enter" Key For Form
+            event.preventDefault();
+          }
+      });      
+
+      const ipc = require('electron').ipcRenderer
+      const { shell } = require('electron')
+
+      $('#submitDOI').click((event) => {
+        console.log('submit DOI')
+        
+        let path = document.getElementById('doifileInput').files[0].path
+
+        $('#doiExtractInputHidden').css('display', 'block')        
+        $('#doiExtractInput').css('opacity', '0.2')
+        $('#doiResult').toggle('opacTransitionToggle')
+
+        $('#googleTab').addClass("disabled")
+        $('#doiTab').addClass("disabled")
+        $('#scihubTab').addClass("disabled")
+        $('#otherTab').addClass("disabled")
+
+        if(path.length > 0){
+          ipc.send('doi', $('#doiPath').val(), $('#doiPath2').val())
+        }
+        
+        M.Toast({html: 'start doi.js', displayLength: Infinity})
+
+      })
+
+      ipc.on('doiDone', function (event, args) {
+        console.log('doiDone')
+        
+        $('#doiExtractInput').css('opacity', '1')
+        $('#doiExtractInputHidden').css('display', 'none')
+        
+        $('#doiResultTitle').text(`Results From ${$('#doiPath').val()}`)
+        $('#doiPath').val('')
+        $('#doiPath2').val('')
+        $('#doifileInput').val('')
+
+        if(!limited)
+          $('#googleTab').removeClass("disabled")
+        $('#doiTab').removeClass("disabled")
+        $('#scihubTab').removeClass("disabled")
+        $('#otherTab').removeClass("disabled")
+        
+        $('#doiStat').text(`Stat: ${args.stat ? "Succeed" : "Failed"}`)
+        
+        if(args.stat){
+          let tmpstr = ''
+          //tmpstr += `<p>cached: ${args.msg.Cached}</p>`
+          // tmpstr += `<p>Last Processed: ${args.msg.CurrentedProcessed}</p>`
+          tmpstr += `<p>Total Processed: ${args.msg.Processed}</p>`
+          //tmpstr += `<p>Automatic: ${args.msg.Native}</p>`
+          //tmpstr += `<p>Manual: ${args.msg.Manual}</p>`
+          tmpstr += `<p>Blocked: ${args.msg.Blocked}</p>`
+          
+          // tmpstr += `<p>processed: ${args.msg.Processed}</p>`
+          // tmpstr += `<p>unProcessed: ${args.msg.unProcessed}</p>`
+          
+          $('#doiMsg').html(tmpstr)
+        }
+        else{
+          console.log(JSON.stringify(args.msg,null,4))
+          $('#doiMsg').html(`${args.msg}`)
+        }
+        $('#doiResult').toggle('opacTransitionToggle')
+
+        M.Collapsible.getInstance($('#doiCollapsible')).open(0)
+        M.Toast.dismissAll();
+      })
+
+      $('#submitScihub').click((event) => {
+        console.log('submit SciHub')
+        
+        $('#scihubInputHidden').css('display', 'block')
+        
+        $('#scihubInput').css('opacity', '0.2')
+        //$('#doiExtractInput').toggle('opacTransitionToggle')
+
+        $('#googleTab').addClass("disabled")
+        $('#doiTab').addClass("disabled")
+        $('#scihubTab').addClass("disabled")
+        $('#otherTab').addClass("disabled")
+
+        $('#scihubResult').toggle('opacTransitionToggle')
+        
+        ipc.send('scihub', $('#scihubTaskPath').val())
+
+        M.Toast({html: 'start sci-hub.js', displayLength: Infinity})
+      })
+
+      ipc.on('scihubDone', function (event, args) {
+        console.log('sciHubDone')
+        
+        $('#scihubInput').css('opacity', '1')
+
+        $('#scihubInputHidden').css('display', 'none')
+
+        $('#scihubResultTitle').text(`Results From ${$('#scihubTaskPath').val()}`)
+        $('#scihubTaskPath').val('')
+        $('#scihubDonePath').val('')
+        $('#scihubfileInput').val('')
+        
+        $('#scihubStat').text(`Stat: ${args.stat ? "Succeed" : "Failed"}`)
+
+        if(args.stat){
+          $('#scihubMsg').html(`<p>Download Success: ${args.msg.currentCount}/${args.msg.totalCount}</p><p>Download Failed: ${args.msg.totalCount - args.msg.currentCount}/${args.msg.totalCount}</p>`)
+        }
+        else{
+          $('#scihubMsg').html(`<p>${args.msg}</p>`)
+        }
+        
+        $('#scihubResult').toggle('opacTransitionToggle')
+
+        if(!limited)  
+          $('#googleTab').removeClass("disabled")
+        $('#doiTab').removeClass("disabled")
+        $('#scihubTab').removeClass("disabled")
+        $('#otherTab').removeClass("disabled")
+
+        M.Collapsible.getInstance($('#scihubCollapsible')).open(0)
+        M.Toast.dismissAll();
+      })
+
+      $('#submitGoogle').click((event) => {
+        console.log('submit Google')
+        
+        $('#googleInputHidden').css('display', 'block')        
+        $('#googleInput').css('opacity', '0.2')
+        $('#googleResult').toggle('opacTransitionToggle')
+        
+        $('#startIndex').val(parseInt($('#startIndex').val() / 10) * 10)
+                
+        
+        $('#googleTab').addClass("disabled")
+        $('#doiTab').addClass("disabled")
+        $('#scihubTab').addClass("disabled")
+        $('#otherTab').addClass("disabled")
+
+        ipc.send('google', $('#searchQuery').val(), $('#startIndex').val())
+
+        M.Toast({html: 'start googleScholar.js', displayLength: Infinity})
+      })
+
+      ipc.on('googleDone', function (event, args) {
+        console.log('googleDone')
+        
+        $('#googleInput').css('opacity', '1')
+        $('#googleInputHidden').css('display', 'none')
+        
+        $('#googleResultTitle').text(`Results From ${$('#searchQuery').val()}`)
+        $('#searchQuery').val('')
+        $('#startIndex').val(0).removeClass('invalid').addClass('valid')
+        
+        $('#googleStat').text(`Stat: ${args.stat ? "Succeed" : "Failed"}`)
+        
+        if(args.stat){
+          let tmpstr = ''
+          tmpstr += (`<p>Last Fetched: ${args.msg.currentCount}</p>`)
+          tmpstr += (`<p>Total Fetched: ${args.msg.totalCount}</p>`)
+          tmpstr += (`<p>End Stat: ${args.msg.stat}</p>`)
+          tmpstr += (`<p>if you are banned, temporaily results are stored in ${args.msg.resultPath}</p>`)
+          tmpstr += (`<p>if not, check ${args.msg.lastVisited}</p>`)
+          
+          $('#googleMsg').html(tmpstr)
+        }
+        else{
+          $('#doiMsg').html(`${args.msg}`)
+        }
+
+        $('#googleResult').toggle('opacTransitionToggle')
+
+        if(limited)
+          $('#googleTab').removeClass("disabled")
+        $('#doiTab').removeClass("disabled")
+        $('#scihubTab').removeClass("disabled")
+        $('#otherTab').removeClass("disabled")
+
+        M.Collapsible.getInstance($('#googleCollapsible')).open(0)
+        M.Toast.dismissAll();
+      })
+
+      ipc.on('logs', function(event, args){
+        console.log(`${args.type}: ${args.msg}`)
+        let opts = {
+          html: `<div style="font-size: 12px;">${args.msg}</div>`,
+          displayLength: 1000 * 300
+        }
+        
+        if(args.type == 'stdout')
+          opts.classes = 'rounded'
+
+        // opts.html.replace(/<a /g, '<a2').replace('/</a>/g', '<a2>')
+
+        M.toast(opts)
+      })
+
+      $('#scihubLink').click(function(event){
+        shell.openExternal('http://yanagiragi.github.io')
+      })
+
+    </script>
+
+    
+    
+  </body>
+</html>
