@@ -66,7 +66,7 @@ console.error = (function(d){
     process.stderr.write(d + '\n')
     errorLog.write(d + '\n')
     if(mainWindow){
-        mainWindow.send('logs', {type: 'stdout', msg: d })
+        mainWindow.send('logs', {type: 'stdout', msg: dd.replace(/\n/g,'<br>') })
     }
 })
 

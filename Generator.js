@@ -26,7 +26,7 @@ exports.GenerateAll = (MMDpath) => {
         .then(GeneratePreview)
         .then((Processed)=>{
             // Processed = [ allSkipedPmxModels, ProcessedPmxModels, ProcessFailedPmxModels, PmdModels]
-            resolve(Processed)
+            resolve(JSON.stringify(Processed, null, 4))
         })
     })
 }
@@ -54,7 +54,7 @@ function ExecCommand(command, commandPath, data)
             resolve(true)
         })
         .catch(function (err) {
-            console.log('ERROR: ', err);
+            console.log(`ERROR:  ${err}`);
             processFailedContainers.push(data)
             resolve(false)
         })
@@ -74,7 +74,9 @@ function GeneratePreview()
             return ele.preview !== `NULL` ? acc : acc.concat(ele)
         }, [])
 
-        console.log(`Skip ${reduced.length} models`);
+        console.log(`Skip ${pmdContainer.length} PMD models`);
+
+        console.log(`Skip ${reduced.length} PMX models`);
 
         console.log(`Should Process: ${shouldProcessContainers.length} models`);
 
