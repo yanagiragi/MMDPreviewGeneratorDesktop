@@ -92,7 +92,7 @@ ipcMain.on('generate', (event, query) => {
             })
         }).catch( e => {
             event.sender.send('generateDone',{
-                stat: true,
+                stat: false,
                 msg: e
             })
         })

@@ -37,7 +37,7 @@ if (require.main === module && process.argv.length == 3) {
     })
 }
 
-function ExecCommand(command, commandPath, data)
+function ExecCommand(command, commandPath, data, previewPathPNG)
 {
     return new Promise((resolve, reject) => {
         exec(command, {cwd: __dirname + commandPath}).then(function (result) {
@@ -49,6 +49,7 @@ function ExecCommand(command, commandPath, data)
                 processFailedContainers.push(data)
             }            
             else{
+                data.preview = previewPathPNG
                 processSuccessContainers.push(data)
             }
             resolve(true)
@@ -86,7 +87,7 @@ function GeneratePreview()
             let commandPath = GeneratorExecuatablePath.substring(0, GeneratorExecuatablePath.lastIndexOf('\\'))
             let executableLocalPath = GeneratorExecuatablePath.substring(GeneratorExecuatablePath.lastIndexOf('\\') + 1)
             let command = `.\\${executableLocalPath} ${GeneratorResolution.width} ${GeneratorResolution.height} ${data.path} ${previewPathPNG}`
-            tasks.push(ExecCommand(command, commandPath, data))
+            tasks.push(ExecCommand(command, commandPath, data, previewPathPNG))
         }
 
         Promise.all(tasks).then(res => resolve([reduced, processSuccessContainers, processFailedContainers, pmdContainer]))
