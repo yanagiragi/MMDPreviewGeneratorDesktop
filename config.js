@@ -19,7 +19,13 @@ const dev = {
     'StorageBookPath': 'Storage/Books',
     'BrowserIcon': 'assets/img/hakuBackground.png',
     'Icon': 'ico/haku.ico',
-    'processPath': './'
+    'processPath': './',
+
+    'GeneratorExecuatablePath': '.\\Executable\\MMDPreviewGenerator.exe',
+    'GeneratorResolution': {
+        'width': 1920,
+        'height': 1440,
+    }
 }
 
 const limitedAsarOption = {

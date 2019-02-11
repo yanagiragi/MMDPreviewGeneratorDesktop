@@ -1,15 +1,18 @@
 const electron = require('electron');
 const { ipcMain } = require('electron')
 const fs = require('fs')
+const path = require('path');
+const url = require('url');
+
+const PreviewGenerator = require('./Generator')
 
 const currentBuildOption = require('./config').getOption()
+
+
 
 const app = electron.app;
 
 const BrowserWindow = electron.BrowserWindow;
-
-const path = require('path');
-const url = require('url');
 
 const accessLog = fs.createWriteStream(__dirname + '/access.log', {flags: 'a'})
 const errorLog = fs.createWriteStream(__dirname + '/error.log', {flags: 'a'})
@@ -55,13 +58,16 @@ console.log = (function(d){
     process.stdout.write(d + '\n')
     accessLog.write(d + '\n')
     if(mainWindow){
-        mainWindow.send('logs', {type: 'stdout', msg: d })
+        mainWindow.send('logs', {type: 'stdout', msg: d.replace(/\n/g,'<br>') })
     }
 })
 
 console.error = (function(d){
     process.stderr.write(d + '\n')
     errorLog.write(d + '\n')
+    if(mainWindow){
+        mainWindow.send('logs', {type: 'stdout', msg: d })
+    }
 })
 
 console.log(`Programs Starts: ${new Date()}`)
@@ -69,26 +75,20 @@ console.log(`Programs Starts: ${new Date()}`)
 ipcMain.on('generate', (event, query) => {
     
     console.log(`query = ${query}`)
-
-    /*googleScholar.googleScholar(query, index).then(res => {
-        res.resultPath = __dirname + '\\' + res.resultPath.replace(/\//g,'\\')
-        event.sender.send('googleDone', {
-            stat: true,
+    
+    // TODO: Check Exists First
+    
+    PreviewGenerator.GenerateAll(query).then( res => {
+        event.sender.send('generateDone',{
+            stat: false,
             msg: res
         })
     }).catch( e => {
-        event.sender.send('googleDone',{
+        event.sender.send('generateDone',{
             stat: false,
             msg: e
         })
-    })*/
-
-    setTimeout(() => {
-        event.sender.send('generateDone',{
-            stat: false,
-            msg: ''
-        })
-    }, 1000 * 5)
+    })
 })
 
 function createWindow() {

@@ -244,7 +244,14 @@
           // Disable Hiddle Blocks
           $('#generateInputHidden').css('display', 'none');
           $('#doiExtractInputHidden').css('display', 'none');
-             
+          
+          $('#generatePath').bind('input', function(){
+            if(document.getElementById('generateFileInput').files[0]){
+              document.getElementById('generateFileInput').files[0].path = $('#generatePath').val();
+            }
+            // console.log($('#generatePath').val())
+          })
+
           $('#generateFileInput').on("change", function(event){
               if(document.getElementById('generateFileInput').files[0]){
                 $('#generatePath').val(`${document.getElementById('generateFileInput').files[0].path}`);
@@ -276,7 +283,7 @@
         
         console.log('submit Generate')
         
-        let path = document.getElementById('generateFileInput').files[0].path
+        let path = $('#generatePath').val()
 
         $('#generateInputHidden').css('display', 'block')        
         $('#generatePath').css('opacity', '0.2')
@@ -322,11 +329,11 @@
           // tmpstr += `<p>processed: ${args.msg.Processed}</p>`
           // tmpstr += `<p>unProcessed: ${args.msg.unProcessed}</p>`
           
-          $('#doiMsg').html(tmpstr)
+          $('#generateMsg').html(tmpstr)
         }
         else{
           console.log(JSON.stringify(args.msg,null,4))
-          $('#doiMsg').html(`${args.msg}`)
+          $('#generateMsg').html(`${args.msg}`)
         }
         
         $('#generateResult').toggle('opacTransitionToggle')
