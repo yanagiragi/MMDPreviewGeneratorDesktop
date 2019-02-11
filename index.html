@@ -97,12 +97,13 @@
   </head>
   <!--<body style="height: -webkit-fill-available; overflow: hidden;">-->
   <body style="height: -webkit-fill-available; "></body>
-    
-    <ul id="tabs-swipe-demo" class="tabs" style="opacity: 0.75">
-      <li class="tab col s3" id="otherTab"><a href="#test-swipe-4" class="active" id="homeStr">Home</a></li>
-      <li class="tab col s5" id="generateTab"><a href="#test-swipe-1">Generate Previews</a></li>
-      <li class="tab col s4" id="collectionTab"><a href="#test-swipe-2">View Collections</a></li>
-    </ul>
+    <div class="row">
+      <ul id="tabs-swipe-demo" class="tabs" style="opacity: 0.75">
+        <li class="tab col s4" id="otherTab"><a href="#test-swipe-4" class="active" id="homeStr">Home</a></li>
+        <li class="tab col s4" id="generateTab"><a href="#test-swipe-1">Generate Previews</a></li>
+        <li class="tab col s4" id="collectionTab"><a href="#test-swipe-2">View Collections</a></li>
+      </ul>
+    </div>
 
     <div>
       
@@ -181,50 +182,55 @@
       </div>
 
       <div id="test-swipe-2">
-        <div class="customPadding row opacTransiion" id="doiExtractInput">
-            <h6 style="padding: 10px; padding-bottom: 5px;">Inputs</h6>
-            <form class="col s12">
-              <div class="row">
-                <div class="input-field col s11">
-                  <input id="doiPath" placeholder="Result=BRDF.json" type="text" class="validate">
-                  <label for="doiPath">DOI Path</label>
-                </div>
-
-                <div class="input-field col uploadBtn" style="margin-left: -50px; margin-top: 25px; z-index: 998; width: 38px;">
-                  <div class="file-upload">
-                    <label for="doifileInput">
-                      <i class="material-icons">cloud_upload</i>
-                    </label>
-                    <input id="doifileInput" type="file" accept=".json"/>
+          <div class="customPadding row opacTransiion" id="collectionInput">
+              <h6 style="padding: 10px; padding-bottom: 5px;">Inputs</h6>
+              <form class="col s12">
+                <div class="row">
+                  <div class="input-field col s11">
+                    <input id="collectionPath" placeholder="D:\Sources\Models\Pmx\" type="text" class="validate" value="C:\Temp">
+                    <label for="collectionPath">Folder Path</label>
                   </div>
+  
+                  <div class="input-field col uploadBtn" style="margin-left: -50px; margin-top: 25px; z-index: 998; width: 38px;">
+                    <div class="file-upload">
+                      <label for="collectionFileInput">
+                        <i class="material-icons">cloud_upload</i>
+                      </label>
+                      <input id="collectionFileInput" type="file" webkitdirectory directory/>
+                    </div>
+                  </div>
+                  
+                  <a class="btn-floating btn-small waves-effect waves-light" style="margin-top: 20px; margin-left: 5px;" id="submitCollection">
+                    <i class="material-icons">send</i>
+                  </a>
                 </div>
-
-                <div class="input-field col s11">
-                  <input id="doiPath2" placeholder="Result=BRDF.json_DOIExtracted.json" type="text" class="validate">
-                  <label for="doiPath2">DOI Extracted Path</label>
-                </div>
-                
-                <a class="btn-floating btn-small waves-effect waves-light" style="margin-top: 20px; margin-left: 5px;" id="submitDOI">
-                  <i class="material-icons">send</i>
-                </a>
+              </form>
+          </div>
+          <div class="customPadding row inputHidden" id="collectionInputHidden"></div>
+          <div class="customPadding2 opacTransiion" id="collectionResult">
+            <h6 style="padding: 10px;">Results: {{ status }} </h6>
+            <div class="row">
+              <div v-for="d in collections" class="col s12 m4">
+                <div class="card">
+                  <div class="card-image waves-effect waves-block waves-light">
+                    <img class="activator" v-bind:src="d.preview">
+                  </div>
+                  <div class="card-content">
+                    <div class="card-title activator grey-text text-darken-4" style="height: 32px; text-overflow: ellipsis; overflow: hidden;">
+                      {{ d.name }}
+                    </div>					  
+                  </div>
+                  <div class="card-reveal">
+                    <div class="card-title grey-text text-darken-4"  style="font-size: 16px; font-weight: bold; text-overflow: ellipsis; overflow: hidden;">
+                      {{ d.name }}
+                    </div>
+                    <div style="width: 80%; word-wrap: break-word;">
+                        <br>{{ d.path }}<br><br>{{ d.preview }}
+                    </div>
+                  </div>      
+                </div>	
               </div>
-            </form>
-        </div>        
-        <div class="customPadding row inputHidden" id="doiExtractInputHidden"></div>
-        <div class="customPadding2 opacTransiion" id="doiResult">
-            <h6 style="padding: 10px;">Results</h6>
-            <div style="padding: 10px;" id=doiResultTitle></div>
-            <ul class="collapsible" id="doiCollapsible">
-              <li>
-                <div class="collapsible-header">
-                  <i class="material-icons">filter_drama</i>
-                  <span id="doiStat">Stat: null</span>
-                </div>
-                <div class="collapsible-body" id="doiMsg">
-                  <div>устраняя преграды на пути распространения знаний.</div>
-                </div>
-              </li>
-            </ul>
+            </div>
         </div>
       </div>
 
@@ -232,9 +238,9 @@
     
     <script src="assets/js/hammer.min.js" onload="window.Hammer = module.exports;"></script>
     <script src="assets/js/jquery-3.3.1.js"></script>
+    
     <!-- Compiled and minified JavaScript -->
     <script src="assets/js/materialize.js"></script>
-    
     <script src="assets/js/vue.min.js"></script>
 
     <script type="text/javascript">
@@ -256,18 +262,17 @@
 
         // Disable Hiddle Blocks
         $('#generateInputHidden').css('display', 'none');
-        $('#doiExtractInputHidden').css('display', 'none');
+        $('#collectionInputHidden').css('display', 'none');
         
-        $('#generatePath').bind('input', function(){
-          if(document.getElementById('generateFileInput').files[0]){
-            document.getElementById('generateFileInput').files[0].path = $('#generatePath').val();
-          }
-          // console.log($('#generatePath').val())
-        })
-
         $('#generateFileInput').on("change", function(event){
             if(document.getElementById('generateFileInput').files[0]){
               $('#generatePath').val(`${document.getElementById('generateFileInput').files[0].path}`);
+            }
+        })
+
+        $('#collectionFileInput').on("change", function(event){
+            if(document.getElementById('collectionFileInput').files[0]){
+              $('#collectionPath').val(`${document.getElementById('collectionFileInput').files[0].path}`);
             }
         })
 
@@ -316,7 +321,7 @@
 
       ipc.on('generateDone', function (event, args) {
         
-        console.log('generateDone')
+        console.log('Generate Done')
         
         $('#generatePath').css('opacity', '1')
         $('#generateInputHidden').css('display', 'none')
@@ -328,8 +333,6 @@
         $('#generateTab').removeClass("disabled")
         $('#collectionTab').removeClass("disabled")
         
-        $('#generateStat').text(`Stat: ${args.stat ? "Succeed" : "Failed"}`)
-        
         if(args.stat){
           generateVue.status = 'Succeed'
           generateVue.containers = args.msg;
@@ -340,6 +343,57 @@
         }
 
         $('#generateResult').toggle('opacTransitionToggle')
+
+        // M.Collapsible.getInstance($('#generateCollapsible')).open(0)
+        M.Toast.dismissAll();
+      })
+
+      $('#submitCollection').click((event) => {
+        
+        console.log('submit Collection')
+        
+        let path = $('#collectionPath').val()
+
+        $('#collectionInputHidden').css('display', 'block')        
+        $('#collectionPath').css('opacity', '0.2')
+        $('#collectionResult').toggle('opacTransitionToggle')
+
+        $('#otherTab').addClass("disabled")
+        $('#generateTab').addClass("disabled")
+        $('#collectionTab').addClass("disabled")
+        
+        if(path.length > 0){
+          ipc.send('collection', path)
+        }
+        
+        M.toast({html: 'Start Collection: ' + path, displayLength: Infinity})
+
+      })
+
+      ipc.on('collectionDone', function (event, args) {
+        
+        console.log('Collection Done')
+        
+        $('#collectionPath').css('opacity', '1')
+        $('#collectionInputHidden').css('display', 'none')
+        
+        $('#collectionFileInput').val('')
+        $('#collectionPath').val('')
+        
+        $('#otherTab').removeClass("disabled")
+        $('#generateTab').removeClass("disabled")
+        $('#collectionTab').removeClass("disabled")
+        
+        if(args.stat){
+          collectionVue.status = 'Succeed'
+          collectionVue.collections = args.msg;
+        }
+        else{
+          collectionVue.status = `Failed, ${args.msg}`
+          collectionVue.collections = []
+        }
+
+        $('#collectionResult').toggle('opacTransitionToggle')
 
         // M.Collapsible.getInstance($('#generateCollapsible')).open(0)
         M.Toast.dismissAll();
@@ -480,6 +534,21 @@
             status: 'null',
             containers : [[],[],[],[]],
             containersName : ['Skipped Models', 'Processed Success', 'ProcessFailed', 'PMD Models']
+        }
+      })
+
+      var collectionVue = new Vue({
+        el: '#collectionResult',
+        data: {
+            status: 'null',
+            collections : []
+        },
+        methods:
+        {
+          getFontSize : function(str){
+					  var size = 16 - ((str.length - 10) / 4)
+					  return `font-size: ${size}px;`
+				  }
         }
       })
 

@@ -74,10 +74,8 @@ console.log(`Programs Starts: ${new Date()}`)
 
 ipcMain.on('generate', (event, query) => {
     
-    console.log(`query = ${query}`)
-    
-    // TODO: Check Exists First
-    
+    console.log(`generate query = ${query}`)
+  
     if(!fs.existsSync(query)) {
         event.sender.send('generateDone',{
             stat: false,
@@ -98,6 +96,33 @@ ipcMain.on('generate', (event, query) => {
         })
     }
 })
+
+
+ipcMain.on('collection', (event, query) => {
+    
+    console.log(`collection query = ${query}`)
+    
+    if(!fs.existsSync(query)) {
+        event.sender.send('collectionDone',{
+            stat: false,
+            msg: 'Query Path Not Exist.'
+        })
+    }
+    else {
+        PreviewGenerator.CollectAll(query).then( res => {
+            event.sender.send('collectionDone',{
+                stat: true,
+                msg: res
+            })
+        }).catch( e => {
+            event.sender.send('collectionDone',{
+                stat: false,
+                msg: e
+            })
+        })
+    }
+})
+
 
 function createWindow() {
     // Create the browser window.

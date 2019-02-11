@@ -21,8 +21,8 @@ exports.GenerateAll = (MMDpath) => {
         processFailedContainers = []
         pmdContainer = [] // Clear container
 
-        CheckfromDir(MMDpath,'.pmd')
         CheckfromDir(MMDpath,'.pmx')
+        .then( CheckfromDir(MMDpath,'.pmd'))
         .then(GeneratePreview)
         .then((Processed)=>{
             // Processed = [ allSkipedPmxModels, ProcessedPmxModels, ProcessFailedPmxModels, PmdModels]
@@ -31,8 +31,38 @@ exports.GenerateAll = (MMDpath) => {
     })
 }
 
+exports.CollectAll = (MMDpath) => {
+    return new Promise((resolve, reject) => {
+        
+        container = []
+        processSuccessContainers = []
+        processFailedContainers = []
+        pmdContainer = [] // Clear container
+
+        CheckfromDir(MMDpath,'.pmx')
+        .then( CheckfromDir(MMDpath,'.pmd'))
+        .then(res =>{
+
+            let reduced = container.reduce((acc, ele) => {
+                return ele.preview === `NULL` ? acc : acc.concat(ele)
+            }, [])
+
+            reduced = pmdContainer.reduce((acc, ele) => {
+                return ele.preview === `NULL` ? acc : acc.concat(ele)
+            }, reduced)
+
+
+            resolve(reduced)
+        })
+    })
+}
+
+
 if (require.main === module && process.argv.length == 3) {
-    exports.GenerateAll(process.argv[2]).then((Processed)=>{
+    /*exports.GenerateAll(process.argv[2]).then((Processed)=>{
+        console.log(JSON.stringify(Processed, null, 4))
+    })*/
+    exports.CollectAll(process.argv[2]).then((Processed)=>{
         console.log(JSON.stringify(Processed, null, 4))
     })
 }
@@ -104,7 +134,7 @@ function CheckfromDir(startPath, filter, callback)
             if ( stat.isDirectory() ) {
                 CheckfromDir(filename, filter); //recurse
             }
-            else if (filename.indexOf(filter) >= 0) {
+            else if (filename.indexOf(filter) != -1) {
                 let previewPathJPG = filename.substring(0, filename.length - ".pmx".length) + postFix + "jpg"
                 let previewPathPNG = filename.substring(0, filename.length - ".pmx".length) + postFix + "png"
                 let hasModel = filename.indexOf(".pm") == (filename.length - ".pmx".length) // .pm for pmx and pmd compability
