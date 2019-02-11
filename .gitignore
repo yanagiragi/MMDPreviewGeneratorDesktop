@@ -75,4 +75,16 @@ typings/
 # FuseBox cache
 .fusebox/
 
-Executable/
+Executable/MMDPreviewGenerator.exe
+Executable/api-ms-win-core-file-l1-2-0.dll
+Executable/api-ms-win-core-file-l2-1-0.dll
+Executable/api-ms-win-core-localization-l1-2-0.dll
+Executable/api-ms-win-core-processthreads-l1-1-1.dll
+Executable/api-ms-win-core-synch-l1-2-0.dll
+Executable/api-ms-win-core-timezone-l1-1-0.dll
+Executable/glfw3.dll
+Executable/msvcp140d.dll
+Executable/ucrtbased.dll
+Executable/vcruntime140d.dll
+Executable/shaders/simple.vert
+Executable/shaders/simple.frag
