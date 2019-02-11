@@ -66,7 +66,7 @@ console.error = (function(d){
     process.stderr.write(d + '\n')
     errorLog.write(d + '\n')
     if(mainWindow){
-        mainWindow.send('logs', {type: 'stdout', msg: dd.replace(/\n/g,'<br>') })
+        mainWindow.send('logs', {type: 'stdout', msg: d.replace(/\n/g,'<br>') })
     }
 })
 
@@ -78,17 +78,25 @@ ipcMain.on('generate', (event, query) => {
     
     // TODO: Check Exists First
     
-    PreviewGenerator.GenerateAll(query).then( res => {
+    if(!fs.existsSync(query)) {
         event.sender.send('generateDone',{
             stat: false,
-            msg: res
+            msg: 'Query Path Not Exist.'
         })
-    }).catch( e => {
-        event.sender.send('generateDone',{
-            stat: false,
-            msg: e
+    }
+    else {
+        PreviewGenerator.GenerateAll(query).then( res => {
+            event.sender.send('generateDone',{
+                stat: true,
+                msg: res
+            })
+        }).catch( e => {
+            event.sender.send('generateDone',{
+                stat: true,
+                msg: e
+            })
         })
-    })
+    }
 })
 
 function createWindow() {

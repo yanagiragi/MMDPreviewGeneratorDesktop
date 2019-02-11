@@ -26,7 +26,7 @@ exports.GenerateAll = (MMDpath) => {
         .then(GeneratePreview)
         .then((Processed)=>{
             // Processed = [ allSkipedPmxModels, ProcessedPmxModels, ProcessFailedPmxModels, PmdModels]
-            resolve(JSON.stringify(Processed, null, 4))
+            resolve(Processed)
         })
     })
 }

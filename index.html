@@ -134,7 +134,7 @@
             <form class="col s12">
               <div class="row">
                 <div class="input-field col s11">
-                  <input id="generatePath" placeholder="D:\Sources\Models\Pmx\" type="text" class="validate">
+                  <input id="generatePath" placeholder="D:\Sources\Models\Pmx\" type="text" class="validate" value="C:\Temp">
                   <label for="generatePath">Folder Path</label>
                 </div>
 
@@ -155,118 +155,47 @@
         </div>
         <div class="customPadding row inputHidden" id="generateInputHidden"></div>
         <div class="customPadding2 opacTransiion" id="generateResult">
-            <h6 style="padding: 10px;">Results</h6>
-            <div style="padding: 10px;" id=generateResultTitle></div>
-            <ul class="collapsible" id="generateCollapsible">
-              <li>
-                <div class="collapsible-header">
-                  <i class="material-icons">filter_drama</i>
-                  <span id="doiStat">Stat: null</span>
-                </div>
-                <div class="collapsible-body" id="generateMsg">
-                  <div>No Results</div>
+            <h6 style="padding: 10px;">Results: {{ status }} </h6>
+            
+                <ul class="collapsible collection" data-collapsible="accordion">
+                    <li v-for="(singleContainer, index) in containers">				
+                      
+                      <div class="collapsible-header">
+                        <i class="material-icons">filter_drama</i>
+                        {{ containersName[index] }}
+                        <span class="badge">
+                          {{ singleContainer.length }}
+                        </span>
+                      </div>
+              
+                      <div class="collapsible-body">
+                        <ul class="collection">
+                          <li v-for="modelData in singleContainer">
+                              {{ modelData.path }}
+                          </li>
+                          <li v-if="singleContainer.length === 0">
+                              __ No Data __
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+              </ul>
 
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
-                  No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
+              <!--<div style="padding: 10px;" id=generateResultTitle></div>
+              <ul class="collapsible" id="generateCollapsible">
+                <li>
+                  <div class="collapsible-header">
+                    <i class="material-icons">filter_drama</i>
+                    <span id="doiStat">Stat: null</span>
+                  </div>
+                  <div class="collapsible-body" id="generateMsg">
+                    <div> No Results</div>
+                  </div>
+                </li>
+              </ul>-->
 
 
-                </div>
-              </li>
-            </ul>
+
         </div>
       </div>
 
@@ -323,7 +252,9 @@ No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
     <script src="assets/js/hammer.min.js" onload="window.Hammer = module.exports;"></script>
     <script src="assets/js/jquery-3.3.1.js"></script>
     <!-- Compiled and minified JavaScript -->
-    <script src="assets/js/materialize.js"></script> 
+    <script src="assets/js/materialize.js"></script>
+    
+    <script src="assets/js/vue.min.js"></script>
 
     <script type="text/javascript">
 
@@ -419,27 +350,17 @@ No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
         $('#generateStat').text(`Stat: ${args.stat ? "Succeed" : "Failed"}`)
         
         if(args.stat){
-          let tmpstr = ''
-          //tmpstr += `<p>cached: ${args.msg.Cached}</p>`
-          // tmpstr += `<p>Last Processed: ${args.msg.CurrentedProcessed}</p>`
-          tmpstr += `<p>Total Processed: ${args.msg.Processed}</p>`
-          //tmpstr += `<p>Automatic: ${args.msg.Native}</p>`
-          //tmpstr += `<p>Manual: ${args.msg.Manual}</p>`
-          tmpstr += `<p>Blocked: ${args.msg.Blocked}</p>`
-          
-          // tmpstr += `<p>processed: ${args.msg.Processed}</p>`
-          // tmpstr += `<p>unProcessed: ${args.msg.unProcessed}</p>`
-          
-          $('#generateMsg').html(tmpstr)
+          generateVue.status = 'Succeed'
+          generateVue.containers = args.msg;
         }
         else{
-          console.log(JSON.stringify(args.msg,null,4))
-          $('#generateMsg').html(`${args.msg}`)
+          generateVue.status = `Failed, ${args.msg}`
+          generateVue.containers = [[],[],[],[]];
         }
-        
+
         $('#generateResult').toggle('opacTransitionToggle')
 
-        M.Collapsible.getInstance($('#generateCollapsible')).open(0)
+        // M.Collapsible.getInstance($('#generateCollapsible')).open(0)
         M.Toast.dismissAll();
       })
 
@@ -570,6 +491,15 @@ No ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo ResultsNo Results
 
       $('#scihubLink').click(function(event){
         shell.openExternal('http://yanagiragi.github.io')
+      })
+
+      var generateVue = new Vue({
+        el: '#generateResult',
+        data: {
+            status: 'null',
+            containers : [[],[],[],[]],
+            containersName : ['Skipped Models', 'Processed Success', 'ProcessFailed', 'PMD Models']
+        }
       })
 
     </script>
