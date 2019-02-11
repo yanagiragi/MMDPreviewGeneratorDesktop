@@ -156,46 +156,27 @@
         <div class="customPadding row inputHidden" id="generateInputHidden"></div>
         <div class="customPadding2 opacTransiion" id="generateResult">
             <h6 style="padding: 10px;">Results: {{ status }} </h6>
-            
-                <ul class="collapsible collection" data-collapsible="accordion">
-                    <li v-for="(singleContainer, index) in containers">				
-                      
-                      <div class="collapsible-header">
-                        <i class="material-icons">filter_drama</i>
-                        {{ containersName[index] }}
-                        <span class="badge">
-                          {{ singleContainer.length }}
-                        </span>
-                      </div>
-              
-                      <div class="collapsible-body">
-                        <ul class="collection">
-                          <li v-for="modelData in singleContainer">
-                              {{ modelData.path }}
-                          </li>
-                          <li v-if="singleContainer.length === 0">
-                              __ No Data __
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
+              <ul class="collapsible collection" data-collapsible="accordion">
+                  <li v-for="(singleContainer, index) in containers">
+                    <div class="collapsible-header">
+                      <i class="material-icons">filter_drama</i>
+                      {{ containersName[index] }}
+                      <span class="badge">
+                        {{ singleContainer.length }}
+                      </span>
+                    </div>
+                    <div class="collapsible-body">
+                      <ul class="collection">
+                        <li v-for="modelData in singleContainer">
+                            {{ modelData.path }}
+                        </li>
+                        <li v-if="singleContainer.length === 0">
+                            __ No Data __
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
               </ul>
-
-              <!--<div style="padding: 10px;" id=generateResultTitle></div>
-              <ul class="collapsible" id="generateCollapsible">
-                <li>
-                  <div class="collapsible-header">
-                    <i class="material-icons">filter_drama</i>
-                    <span id="doiStat">Stat: null</span>
-                  </div>
-                  <div class="collapsible-body" id="generateMsg">
-                    <div> No Results</div>
-                  </div>
-                </li>
-              </ul>-->
-
-
-
         </div>
       </div>
 
