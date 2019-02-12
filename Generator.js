@@ -116,7 +116,7 @@ function GeneratePreview()
             let previewPathPNG = data.path.substring(0, data.path.length - ".pmx".length) + postFix + "png"
             let commandPath = GeneratorExecuatablePath.substring(0, GeneratorExecuatablePath.lastIndexOf('\\'))
             let executableLocalPath = GeneratorExecuatablePath.substring(GeneratorExecuatablePath.lastIndexOf('\\') + 1)
-            let command = `.\\${executableLocalPath} ${GeneratorResolution.width} ${GeneratorResolution.height} ${data.path} ${previewPathPNG}`
+            let command = `.\\${executableLocalPath} ${GeneratorResolution.width} ${GeneratorResolution.height} \"${data.path}\" \"${previewPathPNG}\"`
             tasks.push(ExecCommand(command, commandPath, data, previewPathPNG))
         }
 
