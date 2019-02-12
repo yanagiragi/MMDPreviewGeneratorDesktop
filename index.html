@@ -356,9 +356,7 @@
         $('#generateTab').addClass("disabled")
         $('#collectionTab').addClass("disabled")
         
-        if(path.length > 0){
-          ipc.send('generate', path)
-        }
+        ipc.send('generate', path)
         
         M.toast({html: 'Start Generate: ' + path, displayLength: Infinity})
 
@@ -406,9 +404,7 @@
         $('#generateTab').addClass("disabled")
         $('#collectionTab').addClass("disabled")
         
-        if(path.length > 0){
-          ipc.send('collection', path)
-        }
+        ipc.send('collection', path)
         
         M.toast({html: 'Start Collection: ' + path, displayLength: Infinity})
 
@@ -448,7 +444,7 @@
         console.log(`${args.type}: ${args.msg}`)
         let opts = {
           html: `<div style="font-size: 12px;">${args.msg}</div>`,
-          displayLength: 1000 * 300
+          displayLength: 1000 * 5
         }
         
         if(args.type == 'stdout'){

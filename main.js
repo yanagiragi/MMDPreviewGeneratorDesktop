@@ -127,8 +127,8 @@ ipcMain.on('collection', (event, query) => {
 function createWindow() {
     // Create the browser window.
     mainWindow = new BrowserWindow({
-        width: 800, 
-        height: 800, 
+        width: 1000, 
+        height: 1000, 
         icon: currentBuildOption.BrowserIcon, 
         resizable: currentBuildOption.isDev == true // for release version
     })
