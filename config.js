@@ -20,7 +20,7 @@ const dev = {
 
 const product = {
     'isPhD': false,
-    'BrowserIcon': 'assets/img/hakuBackground.png',
+    'BrowserIcon': 'assets/img/icon.png',
     'Icon': 'ico/haku.ico',
     'processPath': './',
     'GeneratorExecuatablePath': '.\\Executable\\MMDPreviewGenerator.exe',
