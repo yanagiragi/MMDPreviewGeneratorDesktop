@@ -9,7 +9,6 @@ exports.getVersion = () => {
 const dev = {
     'isPhD': true,
     'BrowserIcon': 'assets/img/hakuBackground.png',
-    'Icon': 'ico/haku.ico',
     'processPath': './',
     'GeneratorExecuatablePath': '.\\Executable\\MMDPreviewGenerator.exe',
     'GeneratorResolution': {
@@ -21,7 +20,6 @@ const dev = {
 const product = {
     'isPhD': false,
     'BrowserIcon': 'assets/img/icon.png',
-    'Icon': 'ico/haku.ico',
     'processPath': './',
     'GeneratorExecuatablePath': '.\\Executable\\MMDPreviewGenerator.exe',
     'GeneratorResolution': {
