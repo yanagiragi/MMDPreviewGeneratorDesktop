@@ -237,7 +237,7 @@
                     <img class="activator" v-bind:src="collections[(indexPerPage * currentIndex + index)].preview">
                   </div>
                   <div class="card-content">
-                    <div class="card-title activator grey-text text-darken-4" style="font-size: 20px; height: 32px; text-overflow: ellipsis; overflow: hidden;">
+                    <div class="card-title activator grey-text text-darken-4" style="font-size: 20px; height: 32px; text-overflow: ellipsis; overflow: hidden; text-align: center;">
                       {{ collections[(indexPerPage * currentIndex + index)].name }}
                     </div>					  
                   </div>
@@ -255,19 +255,19 @@
                 <div v-for="d in 3" class="col s12 m4">
                   <div class="card">
                     <div class="card-image waves-effect waves-block waves-light">
-                      <img class="activator" src="assets/img/hakuTransparent.png">
+                      <img class="activator" v-bind:src="`assets/img/hakuTransparent${d - 1}.png`">
                     </div>
                     <div class="card-content">
-                      <div class="card-title activator grey-text text-darken-4" style="height: 32px; text-overflow: ellipsis; overflow: hidden;">
+                      <div class="card-title activator grey-text text-darken-4" style="height: 32px; text-overflow: ellipsis; overflow: hidden; text-align: center;">
                         {{ ['This', 'Is', 'Placeholder'][d - 1] }}
                       </div>					  
                     </div>
                     <div class="card-reveal">
                       <div class="card-title grey-text text-darken-4"  style="font-size: 16px; font-weight: bold; text-overflow: ellipsis; overflow: hidden;">
-                          __ No Data __{{ d }}
+                          {{ ['Haku', 'Haku', 'Haku'][d - 1] }}
                       </div>
                       <div style="width: 80%; word-wrap: break-word;">
-                          <br> __ No Data __{{ d }}<br><br> __ No Data __{{ d }}
+                          <br> {{ ['Is', 'Is', 'Is'][d - 1] }}<br><br> {{ ['Waifu', 'Waifu', 'Waifu'][d - 1] }}
                       </div>
                     </div>      
                   </div>	
