@@ -1,5 +1,5 @@
 exports.getOption = () => {
-    return product
+    return dev
 }
 
 exports.getVersion = () => {
@@ -20,7 +20,7 @@ const dev = {
 const product = {
     'isPhD': false,
     'BrowserIcon': 'assets/img/icon.png',
-    'processPath': './',
+    'processPath': './resources/app',
     'GeneratorExecuatablePath': '.\\Executable\\MMDPreviewGenerator.exe',
     'GeneratorResolution': {
         'width': 960,
