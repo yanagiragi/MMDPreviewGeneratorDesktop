@@ -218,11 +218,15 @@
           <div class="customPadding2 opacTransiion" id="collectionResult">
             <h6 style="padding: 10px;">Results: {{ status }} </h6>
             
-            <ul class="pagination" v-if="collections.length !== 0">
+            <ul class="pagination" v-if="collections.length !== 0" style="text-align: center;">
               <li class="waves-effect" v-on:click="passIndex(currentIndex - 1)"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-              <li v-for="(n, index) in parseInt((this.collections.length + this.indexPerPage - 1)/ this.indexPerPage)" class="waves-effect" v-bind:class="{ active: index === currentIndex }" v-on:click="passIndex(index)">
-                <a href="#!"> {{ index + 1 }} </a>
+              <li v-if="leastIndex != 0">...</li>
+              
+              <li v-for="(n, index) in (mostIndex - leastIndex)" class="waves-effect" v-bind:class="{ active: (index + leastIndex) === currentIndex }" v-on:click="passIndex(index + leastIndex)">
+                <a href="#!" style="font-size: 14px;"> {{ leastIndex + index + 1 }} </a>
               </li>
+              
+              <li  v-if="mostIndex != parseInt((this.collections.length + this.indexPerPage - 1)/ this.indexPerPage)">...</li>
               <li class="waves-effect" v-on:click="passIndex(currentIndex + 1)"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
             </ul>
             
@@ -433,6 +437,8 @@
           collectionVue.collections = []
         }
 
+        collectionVue.currentIndex = 0
+
         $('#collectionResult').toggle('opacTransitionToggle')
 
         M.Toast.dismissAll();
@@ -470,9 +476,11 @@
         data: {
             status: 'null',
             collections : [],
-            currentIndex: 0,
-            indexPerPage: 11,
-            paginationPerPage: 11,
+            currentIndex: -1,
+            leastIndex: 0,
+            mostIndex: 0,
+            indexPerPage: 6,
+            paginationPerPage: 15,
             paginationStride: 5
         },
         methods:
@@ -484,14 +492,41 @@
           passIndex : function(idx){
             let limit = parseInt((this.collections.length + this.indexPerPage - 1)/ this.indexPerPage);
             this.currentIndex =  idx < 0 ? 0 : idx < limit ? idx : limit - 1 ;
+          },
+          updatePaginationIndexes : function()
+          {
+            let limit = parseInt((this.collections.length + this.indexPerPage - 1)/ this.indexPerPage);
+            this.leastIndex = (this.currentIndex - this.paginationStride) > 0 ? (this.currentIndex - this.paginationStride) : 0;
+            this.mostIndex = (this.leastIndex + this.paginationPerPage) > limit ? limit : (this.leastIndex + this.paginationPerPage);
+            // Re-clamp leastIndex
+            // Consider when you reach the end of the paginations
+            // Without this clamp, the leastIndex will continues to minus with currentIndex increases
+            // results in displayed pagination amount != (2 * paginationStride + 1)
+            this.leastIndex = (this.mostIndex  - this.paginationPerPage) > 0 ? (this.mostIndex  - this.paginationPerPage) : 0;
           }
         },
         watch: {
+          indexPerPage: function(val){
+            this.updatePaginationIndexes()
+          },
           currentIndex: function (val) {
+            
+            // clamp the range
+            let limit = parseInt((this.collections.length + this.indexPerPage - 1)/ this.indexPerPage);
+            val = val < 0 ? 0 : val >= limit ? limit - 1: val;
+            
+            // update once since updatePaginationIndexes need it
+            this.currentIndex = val;
+            this.updatePaginationIndexes();
+            
+            // Disable opened cards
             [...$('.card-reveal')].filter(x => $(x).css('display') === 'block').map(x => $(x).css('display', '').css('transform',''))
+            
+            // actual update to this.currentIndex
+            return val
           },
           paginationPerPage: function (val) {
-            paginationStride = parseInt((paginationPerPage - 1) / 2)
+            this.paginationStride = parseInt((this.paginationPerPage - 1) / 2)
           }
         }
       })
