@@ -1,26 +1,16 @@
 exports.getOption = () => {
-    return dev
+    return product
 }
 
 exports.getVersion = () => {
     return '1.0.0'
 }
 
-
 const dev = {
-    'isDev': true,
-    'isPhD': false,
-    'limit': false,
-    'asar': false,
-    'JsonPath': 'json', // no '/' at last character
-    'DonePath': 'json/done.json',
-    'BlockedPath': 'json/blocked.json',
-    'StoragePath': 'Storage',
-    'StorageBookPath': 'Storage/Books',
+    'isPhD': true,
     'BrowserIcon': 'assets/img/hakuBackground.png',
     'Icon': 'ico/haku.ico',
     'processPath': './',
-
     'GeneratorExecuatablePath': '.\\Executable\\MMDPreviewGenerator.exe',
     'GeneratorResolution': {
         'width': 1920,
@@ -28,42 +18,14 @@ const dev = {
     }
 }
 
-const limitedAsarOption = {
-    'limit': true,
-    'asar': true,
-    'JsonPath': '../json',
-    'DonePath': '../json/done.json',
-    'BlockedPath': '../json/blocked.json',
-    'StoragePath': '../Storage',
-    'StorageBookPath': '../Storage/Books',
-    'BrowserIcon': 'assets/img/hakuGaussian2.png',
+const product = {
+    'isPhD': false,
+    'BrowserIcon': 'assets/img/hakuBackground.png',
     'Icon': 'ico/haku.ico',
-    'processPath': './resources'
-}
-
-const AsarOption = {
-    'limit': false,
-    'asar': true,
-    'JsonPath': '../json',
-    'DonePath': '../json/done.json',
-    'BlockedPath': '../json/blocked.json',
-    'StoragePath': '../Storage',
-    'StorageBookPath': '../Storage/Books',
-    'BrowserIcon': 'assets/img/hakuGaussian2.png',
-    'Icon': 'ico/haku.ico',
-    'processPath': './resources'
-}
-
-const phdOpenOption = {
-    'isPhD': true,
-    'limit': false,
-    'asar': false,
-    'JsonPath': '../../json',
-    'DonePath': '../../json/done.json',
-    'BlockedPath': '../../json/blocked.json',
-    'StoragePath': '../../Storage',
-    'StorageBookPath': '../../Storage/Books',
-    'BrowserIcon': 'assets/img/dsr50.png',
-    'Icon': 'ico/dsr.ico',
-    'processPath': './resources/app'
+    'processPath': './',
+    'GeneratorExecuatablePath': '.\\Executable\\MMDPreviewGenerator.exe',
+    'GeneratorResolution': {
+        'width': 960,
+        'height': 720,
+    }
 }
