@@ -51,6 +51,7 @@
         background-size : 100%;
         color:  grey;
         overflow: auto;
+        font-family: 微軟正黑體;
       }
 
       .tabs-content.carousel.carousel-slider .carousel-item.active{
@@ -216,48 +217,57 @@
           </div>
           <div class="customPadding2 opacTransiion" id="collectionResult">
             <h6 style="padding: 10px;">Results: {{ status }} </h6>
+            
+            <ul class="pagination" v-if="collections.length !== 0">
+              <li class="waves-effect" v-on:click="passIndex(currentIndex - 1)"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+              <li v-for="(n, index) in parseInt((this.collections.length + this.indexPerPage - 1)/ this.indexPerPage)" class="waves-effect" v-bind:class="{ active: index === currentIndex }" v-on:click="passIndex(index)">
+                <a href="#!"> {{ index + 1 }} </a>
+              </li>
+              <li class="waves-effect" v-on:click="passIndex(currentIndex + 1)"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+            </ul>
+            
             <div class="row">
-              <div v-for="d in collections" class="col s12 m4">
-                <div class="card">
+              <div v-if="collections.length !== 0" v-for="(n, index) in indexPerPage" class="col s12 m4">
+                <div class="card" v-if="(indexPerPage * currentIndex + index) < collections.length" :key="indexPerPage * currentIndex + index">
                   <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" v-bind:src="d.preview">
+                    <img class="activator" v-bind:src="collections[(indexPerPage * currentIndex + index)].preview">
                   </div>
                   <div class="card-content">
-                    <div class="card-title activator grey-text text-darken-4" style="height: 32px; text-overflow: ellipsis; overflow: hidden;">
-                      {{ d.name }}
+                    <div class="card-title activator grey-text text-darken-4" style="font-size: 20px; height: 32px; text-overflow: ellipsis; overflow: hidden;">
+                      {{ collections[(indexPerPage * currentIndex + index)].name }}
                     </div>					  
                   </div>
                   <div class="card-reveal">
-                    <div class="card-title grey-text text-darken-4"  style="font-size: 16px; font-weight: bold; text-overflow: ellipsis; overflow: hidden;">
-                      {{ d.name }}
+                    <div class="card-title grey-text text-darken-4" style="font-size: 16px; font-weight: bold; text-overflow: ellipsis; overflow: hidden;">
+                      {{ collections[(indexPerPage * currentIndex + index)].name }}
                     </div>
                     <div style="width: 80%; word-wrap: break-word;">
-                        <br>{{ d.path }}<br><br>{{ d.preview }}
+                        <br>{{ collections[(indexPerPage * currentIndex + index) ].path }}<br><br>{{ collections[(indexPerPage * currentIndex + index)].preview }}
                     </div>
                   </div>      
                 </div>	
               </div>
               <div v-if="collections.length === 0">
-                  <div v-for="d in 3" class="col s12 m4">
-                      <div class="card">
-                        <div class="card-image waves-effect waves-block waves-light">
-                          <img class="activator" src="assets/img/hakuTransparent.png">
-                        </div>
-                        <div class="card-content">
-                          <div class="card-title activator grey-text text-darken-4" style="height: 32px; text-overflow: ellipsis; overflow: hidden;">
-                            {{ ['This', 'Is', 'Placeholder'][d - 1] }}
-                          </div>					  
-                        </div>
-                        <div class="card-reveal">
-                          <div class="card-title grey-text text-darken-4"  style="font-size: 16px; font-weight: bold; text-overflow: ellipsis; overflow: hidden;">
-                              __ No Data __{{ d }}
-                          </div>
-                          <div style="width: 80%; word-wrap: break-word;">
-                              <br> __ No Data __{{ d }}<br><br> __ No Data __{{ d }}
-                          </div>
-                        </div>      
-                      </div>	
+                <div v-for="d in 3" class="col s12 m4">
+                  <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                      <img class="activator" src="assets/img/hakuTransparent.png">
                     </div>
+                    <div class="card-content">
+                      <div class="card-title activator grey-text text-darken-4" style="height: 32px; text-overflow: ellipsis; overflow: hidden;">
+                        {{ ['This', 'Is', 'Placeholder'][d - 1] }}
+                      </div>					  
+                    </div>
+                    <div class="card-reveal">
+                      <div class="card-title grey-text text-darken-4"  style="font-size: 16px; font-weight: bold; text-overflow: ellipsis; overflow: hidden;">
+                          __ No Data __{{ d }}
+                      </div>
+                      <div style="width: 80%; word-wrap: break-word;">
+                          <br> __ No Data __{{ d }}<br><br> __ No Data __{{ d }}
+                      </div>
+                    </div>      
+                  </div>	
+                </div>
               </div>
             </div>
         </div>
@@ -375,7 +385,6 @@
 
         $('#generateResult').toggle('opacTransitionToggle')
 
-        // M.Collapsible.getInstance($('#generateCollapsible')).open(0)
         M.Toast.dismissAll();
       })
 
@@ -426,120 +435,8 @@
 
         $('#collectionResult').toggle('opacTransitionToggle')
 
-        // M.Collapsible.getInstance($('#generateCollapsible')).open(0)
         M.Toast.dismissAll();
       })
-
-      /*$('#submitScihub').click((event) => {
-        console.log('submit SciHub')
-        
-        $('#scihubInputHidden').css('display', 'block')
-        
-        $('#scihubInput').css('opacity', '0.2')
-        //$('#doiExtractInput').toggle('opacTransitionToggle')
-
-        $('#googleTab').addClass("disabled")
-        $('#doiTab').addClass("disabled")
-        $('#scihubTab').addClass("disabled")
-        $('#otherTab').addClass("disabled")
-
-        $('#scihubResult').toggle('opacTransitionToggle')
-        
-        ipc.send('scihub', $('#scihubTaskPath').val())
-
-        M.toast({html: 'start sci-hub.js', displayLength: Infinity})
-      })
-
-      ipc.on('scihubDone', function (event, args) {
-        console.log('sciHubDone')
-        
-        $('#scihubInput').css('opacity', '1')
-
-        $('#scihubInputHidden').css('display', 'none')
-
-        $('#scihubResultTitle').text(`Results From ${$('#scihubTaskPath').val()}`)
-        $('#scihubTaskPath').val('')
-        $('#scihubDonePath').val('')
-        $('#scihubfileInput').val('')
-        
-        $('#scihubStat').text(`Stat: ${args.stat ? "Succeed" : "Failed"}`)
-
-        if(args.stat){
-          $('#scihubMsg').html(`<p>Download Success: ${args.msg.currentCount}/${args.msg.totalCount}</p><p>Download Failed: ${args.msg.totalCount - args.msg.currentCount}/${args.msg.totalCount}</p>`)
-        }
-        else{
-          $('#scihubMsg').html(`<p>${args.msg}</p>`)
-        }
-        
-        $('#scihubResult').toggle('opacTransitionToggle')
-
-        if(!limited)  
-          $('#googleTab').removeClass("disabled")
-        $('#doiTab').removeClass("disabled")
-        $('#scihubTab').removeClass("disabled")
-        $('#otherTab').removeClass("disabled")
-
-        M.Collapsible.getInstance($('#scihubCollapsible')).open(0)
-        M.toast.dismissAll();
-      })
-
-      $('#submitGoogle').click((event) => {
-        console.log('submit Google')
-        
-        $('#googleInputHidden').css('display', 'block')        
-        $('#googleInput').css('opacity', '0.2')
-        $('#googleResult').toggle('opacTransitionToggle')
-        
-        $('#startIndex').val(parseInt($('#startIndex').val() / 10) * 10)
-                
-        
-        $('#googleTab').addClass("disabled")
-        $('#doiTab').addClass("disabled")
-        $('#scihubTab').addClass("disabled")
-        $('#otherTab').addClass("disabled")
-
-        ipc.send('google', $('#searchQuery').val(), $('#startIndex').val())
-
-        M.toast({html: 'start googleScholar.js', displayLength: Infinity})
-      })
-
-      ipc.on('googleDone', function (event, args) {
-        console.log('googleDone')
-        
-        $('#googleInput').css('opacity', '1')
-        $('#googleInputHidden').css('display', 'none')
-        
-        $('#googleResultTitle').text(`Results From ${$('#searchQuery').val()}`)
-        $('#searchQuery').val('')
-        $('#startIndex').val(0).removeClass('invalid').addClass('valid')
-        
-        $('#googleStat').text(`Stat: ${args.stat ? "Succeed" : "Failed"}`)
-        
-        if(args.stat){
-          let tmpstr = ''
-          tmpstr += (`<p>Last Fetched: ${args.msg.currentCount}</p>`)
-          tmpstr += (`<p>Total Fetched: ${args.msg.totalCount}</p>`)
-          tmpstr += (`<p>End Stat: ${args.msg.stat}</p>`)
-          tmpstr += (`<p>if you are banned, temporaily results are stored in ${args.msg.resultPath}</p>`)
-          tmpstr += (`<p>if not, check ${args.msg.lastVisited}</p>`)
-          
-          $('#googleMsg').html(tmpstr)
-        }
-        else{
-          $('#doiMsg').html(`${args.msg}`)
-        }
-
-        $('#googleResult').toggle('opacTransitionToggle')
-
-        if(limited)
-          $('#googleTab').removeClass("disabled")
-        $('#doiTab').removeClass("disabled")
-        $('#scihubTab').removeClass("disabled")
-        $('#otherTab').removeClass("disabled")
-
-        M.Collapsible.getInstance($('#googleCollapsible')).open(0)
-        M.toast.dismissAll();
-      })*/
 
       ipc.on('logs', function(event, args){
         console.log(`${args.type}: ${args.msg}`)
@@ -572,14 +469,30 @@
         el: '#collectionResult',
         data: {
             status: 'null',
-            collections : []
+            collections : [],
+            currentIndex: 0,
+            indexPerPage: 11,
+            paginationPerPage: 11,
+            paginationStride: 5
         },
         methods:
         {
           getFontSize : function(str){
 					  var size = 16 - ((str.length - 10) / 4)
 					  return `font-size: ${size}px;`
-				  }
+          },
+          passIndex : function(idx){
+            let limit = parseInt((this.collections.length + this.indexPerPage - 1)/ this.indexPerPage);
+            this.currentIndex =  idx < 0 ? 0 : idx < limit ? idx : limit - 1 ;
+          }
+        },
+        watch: {
+          currentIndex: function (val) {
+            [...$('.card-reveal')].filter(x => $(x).css('display') === 'block').map(x => $(x).css('display', '').css('transform',''))
+          },
+          paginationPerPage: function (val) {
+            paginationStride = parseInt((paginationPerPage - 1) / 2)
+          }
         }
       })
 
